@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Layout, Menu, MenuProps, Row } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { RouteNames } from '../router';
+import { useTypedSelector } from '../hooks/useTypedSelector';
 
 const Navbar: FC = () => {
   const itemsLogin: MenuProps['items'] = ['Login'].map((key) => ({
@@ -14,33 +15,31 @@ const Navbar: FC = () => {
   }));
 
   const history = useNavigate();
-  const auth = true;
+  const { isAuth } = useTypedSelector((state) => state.auth);
 
   return (
     <Layout.Header>
-      <Row style={{ justifyContent: 'flex-end' }}>
-        {auth ? (
-          <>
-            <Menu
-              theme="dark"
-              mode="horizontal"
-              selectable={false}
-              items={itemsLogout}
-              onClick={() => console.log('Logout')}
-            />
-            <div style={{ color: '#fff' }}>VolkovVA</div>
-          </>
-        ) : (
+      {isAuth ? (
+        <Row style={{ justifyContent: 'flex-end' }}>
           <Menu
             theme="dark"
             mode="horizontal"
             selectable={false}
-            items={itemsLogin}
-            style={{ justifyContent: 'flex-end' }}
-            onClick={() => history(RouteNames.LOGIN)}
+            items={itemsLogout}
+            onClick={() => console.log('Logout')}
           />
-        )}
-      </Row>
+          <div style={{ color: '#fff' }}>VolkovVA</div>
+        </Row>
+      ) : (
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          selectable={false}
+          items={itemsLogin}
+          style={{ justifyContent: 'flex-end' }}
+          onClick={() => history(RouteNames.LOGIN)}
+        />
+      )}
     </Layout.Header>
   );
 };
