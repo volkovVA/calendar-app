@@ -4,7 +4,7 @@ import { Layout, Menu, MenuProps, Row } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { RouteNames } from '../router';
 import { useTypedSelector } from '../hooks/useTypedSelector';
-import { AuthActionCreators } from '../store/reducers/auth/action-creators';
+import { useActions } from '../hooks/useActions';
 
 const Navbar: FC = () => {
   const itemsLogin: MenuProps['items'] = ['Login'].map((key) => ({
@@ -18,7 +18,7 @@ const Navbar: FC = () => {
 
   const history = useNavigate();
   const { isAuth, user } = useTypedSelector((state) => state.auth);
-  const dispatch = useDispatch();
+  const { logout } = useActions();
 
   return (
     <Layout.Header>
@@ -31,7 +31,7 @@ const Navbar: FC = () => {
             selectable={false}
             items={itemsLogout}
             // @ts-ignore
-            onClick={() => dispatch(AuthActionCreators.logout())}
+            onClick={logout}
           />
         </Row>
       ) : (
