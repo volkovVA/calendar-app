@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { Form, Input, Button } from 'antd';
 import { rules } from '../utils/rules';
 import { useTypedSelector } from '../hooks/useTypedSelector';

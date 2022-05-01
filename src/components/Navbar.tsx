@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Layout, Menu, MenuProps, Row } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { RouteNames } from '../router';
